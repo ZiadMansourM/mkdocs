@@ -1,6 +1,6 @@
-# Welcome to MkDocs
+# Welcome to SilverKey
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+For full documentation visit [silverkeytech.com](https://www.silverkeytech.com/).
 
 ## Commands
 
