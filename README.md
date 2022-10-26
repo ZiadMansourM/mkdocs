@@ -1,45 +1,33 @@
 # Testing [mkdocs](https://www.mkdocs.org/) for [SilverKey Technologies](https://www.silverkeytech.com/)
 
 ```yml
-name: Branch & Path
-
-on:  
-  push:
-    branches:
-      - "**"
-    paths: 
-      - '.github/workflows/BranchAndPath.yml'
-      - 'README.md'
-```
-
-
-```yml
 name: Deploy to GitHub Pages
 on:
-  push:	
-    branches:	
+  push:
+    branches:
       - master
+    paths:
+      - 'docs/**'
+      - 'mkdocs.yml'
 
 jobs:
-  deploy:
-    name: Deploy to GitHub Pages
-    runs-on: ubuntu-latest    
+  build-deploy:
+    name: Build Docs and Deploy to GitHub Pages
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Use Node.js
-      uses: actions/setup-node@v1
+    - uses: actions/setup-python@v4
       with:
-        node-version: 10.x
-    - name: npm install and build
+        python-version: '3.10'
+    - name: build docs
       run: |
-        npm install
-        npm run build
-
+        pip3 install mkdocs
+        mkdocs build
     - name: Deploy
       uses: s0/git-publish-subdir-action@develop
       env:
         REPO: self
-        BRANCH: gh-pages
-        FOLDER: public/site
+        BRANCH: docs
+        FOLDER: site
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
